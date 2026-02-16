@@ -5,6 +5,7 @@ import config from './config.js'
 import WhatsAppAdapter from './adapters/whatsapp.js'
 import iMessageAdapter from './adapters/imessage.js'
 import TelegramAdapter from './adapters/telegram.js'
+import DiscordAdapter from './adapters/discord.js'
 import SignalAdapter from './adapters/signal.js'
 import SessionManager from './sessions/manager.js'
 import AgentRunner from './agent/runner.js'
@@ -220,6 +221,20 @@ class Gateway {
         await telegram.start()
       } catch (err) {
         console.error('[Gateway] Telegram adapter failed to start:', err.message)
+      }
+    }
+
+    // Initialize Discord adapter
+    if (config.discord?.enabled) {
+      console.log('[Gateway] Initializing Discord adapter...')
+      const discord = new DiscordAdapter(config.discord)
+      this.setupAdapter(discord, 'discord', config.discord)
+      this.adapters.set('discord', discord)
+
+      try {
+        await discord.start()
+      } catch (err) {
+        console.error('[Gateway] Discord adapter failed to start:', err.message)
       }
     }
 
