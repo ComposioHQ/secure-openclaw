@@ -25,6 +25,14 @@ export default {
     respondToMentionsOnly: true
   },
 
+  discord: {
+    enabled: false,
+    token: process.env.DISCORD_BOT_TOKEN || '',
+    allowedDMs: parseList(process.env.DISCORD_ALLOWED_DMS),
+    allowedGuilds: parseList(process.env.DISCORD_ALLOWED_GUILDS),
+    respondToMentionsOnly: true
+  },
+
   signal: {
     enabled: false,
     phoneNumber: process.env.SIGNAL_PHONE_NUMBER || '',
